@@ -18,6 +18,16 @@ class Bank(object):
     def balanceFor(self, username):
         a = self.getAccount(username)
         return a.balance
+
+
+    def historyFor(self, username):
+        # @TODO: THIS SUCKS!! NEED TO ADD QUERIES TO ARLO
+        a =self.getAccount(username)
+        history = [t for t in self.clerk.match(Transaction)
+                   if (t.src.ID == a.ID) or (t.dst.ID == a.ID)]
+        history.sort(lambda a,b: cmp(a.posted, b.posted))
+        return history
+        
         
     ## transfer management:
 

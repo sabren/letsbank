@@ -53,6 +53,8 @@ class BankTest(unittest.TestCase):
         assert t.amount == 1
         assert self.clerk.match(Account, username='wanda')[0].balance == -1
 
+        assert len(self.bank.historyFor("wanda")) == 1
+
 
 if __name__=="__main__":
     unittest.main()
