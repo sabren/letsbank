@@ -3,6 +3,7 @@ from Transaction import Transaction
 from Bank import Bank
 from AccountAuth import AccountAuth
 from BankingApp import BankingApp
+from ProfileApp import ProfileApp
 
 DBMAP = {
     Account: "bank_account",    
