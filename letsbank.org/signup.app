@@ -1,11 +1,6 @@
 
 from signup import SignupApp
-from sqlLetsbank import dbc
-from letsbank import DBMAP, Account
-from arlo import Clerk
-from storage import MySQLStorage
 from sixthday import Form
-CLERK = Clerk(MySQLStorage(dbc), DBMAP)
 
 
 class LetsBankSignupApp(SignupApp):

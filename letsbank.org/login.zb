@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+     "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>LETSbank! - currency for collaboration</title>
+<link rel="stylesheet" href="letsbank.css">
+</head>
+<body>
+
+<h1>{:message:}</h1>
+
+<div id="login" style="margin-right:140px; float: left;">
+<form action="{:action:}" method="POST" style="display:inline">
+{:hidden:}
+username:<br>
+<input type="text" name="auth_username" 
+       style="width:100px;">
+password: <br>
+<input type="password" name="auth_password" style="width:100px;"><br>
+<input type="submit" value="log in" 
+  style="color: white; margin-top:4px; background: #ccddff; border: none">
+</form>
+</div>
+
+</body>
+</html>
