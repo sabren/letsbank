@@ -9,7 +9,9 @@ class BankingApp(AdminApp):
 
     MESSAGES = {
         "transok": "transfer successful!",
+        "nonpos": "amount must be positive",
         "badamt": "invalid amount!",
+        "xferself": "can't transfer money to yourself",
         }
 
     def __init__(self, input, bank, account):
@@ -29,21 +31,19 @@ class BankingApp(AdminApp):
     def act_main(self):
         if self.input.get("msg") in self.MESSAGES:
             self.model["message"] = self.MESSAGES[self.input["msg"]]
-        hist = self.bank.historyFor(self.account.username)
-        self.model["transactions"] = [{"posted":t.posted,
-                                       "amount":t.amount,
-                                       "source":t.src.username,
-                                       "dest":t.dst.username,
-                                       "note":t.note,} for t in hist]
+        self.model["history"] = self.bank.historyFor(self.account.username)
+        self.model["balance"] = self.bank.balanceFor(self.account.username)
         self.write(zebra.fetch("main", self.model))
 
     def act_transfer(self):
         try:
-            amount = FixedPoint(self.input["amount"])
-        except:
-            self.redirect("banking.app?action=main&msg=badamt")
-        self.bank.transfer(self.account.username,
-                           self.input["dest"],
-                           amount, self.input.get("note"))
-        self.redirect("banking.app?action=main&msg=transok")
+            self.bank.transfer(self.account.username,
+                               self.input["dest"],
+                               self.input["amount"],
+                               self.input.get("note"))
+        except ValueError, e:
+            self.input["msg"] = str(e)
+            self.act_main()
+        else:
+            self.redirect("banking.app?action=main&msg=transok")
         
