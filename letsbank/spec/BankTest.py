@@ -1,5 +1,5 @@
 import unittest
-from letsbank import Bank, Transaction, Account
+from letsbank import Bank, Transaction, Account, DBMAP
 from arlo import MockClerk
 
 def sum(xs):
@@ -14,13 +14,9 @@ class BankTest(unittest.TestCase):
         """
         our test bank has two accounts: wanda and rufus.
         """
-        self.clerk = MockClerk({
-            Transaction.__attrs__['dst']: (Account, "dstID"),
-            Transaction.__attrs__['src']: (Account, "srcID"),
-            })
+        self.clerk = MockClerk(DBMAP)
         self.clerk.store(Account(username="rufus"))
         self.clerk.store(Account(username="wanda"))
-        
         self.bank = Bank(self.clerk)        
 
 
