@@ -31,7 +31,7 @@ class BankTest(unittest.TestCase):
         assert zeroSum()
         self.bank.transfer("rufus", "wanda", 5, "test")
         self.assertEquals(self.bank.balanceFor("rufus"), -5)
-        assert self.bank.balanceFor("wanda") == 5
+        self.assertEquals(self.bank.balanceFor("wanda"), 5)
         assert zeroSum()
 
 
@@ -41,6 +41,9 @@ class BankTest(unittest.TestCase):
         """
         self.assertRaises(ValueError, self.bank.transfer, "wanda", "rufus", -1, "whatever")
         self.assertRaises(ValueError, self.bank.transfer, "wanda", "rufus", 0, "whatever")
+
+    def test_transfer_to_self(self):
+        self.assertRaises(ValueError, self.bank.transfer, "wanda", "wanda", 1, "self transfer")
 
 
     def test_history(self):
