@@ -1,0 +1,16 @@
+From: LETSBank! <welcome@letsbank.org>
+To: {:fname:} {:lname:} <{:email:}>
+Subject: Welcome to LETSBank!
+
+Hello {:fname:},
+
+Your LETSBank! account has been created.
+You may now log in at:
+
+    http://letsbank.org/
+
+    Your username: {:username:}
+    Your password: {:password:}
+    
+Thank you for joining LETSBank!
+

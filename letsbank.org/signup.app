@@ -1,0 +1,31 @@
+
+from signup import SignupApp
+from sqlLetsbank import dbc
+from letsbank import DBMAP, Account
+from arlo import Clerk
+from storage import MySQLStorage
+from sixthday import Form
+CLERK = Clerk(MySQLStorage(dbc), DBMAP)
+
+
+class LetsBankSignupApp(SignupApp):
+
+    def setupRequiredFields(self):
+        ## set up default and required fields:
+        f = Form(Account())
+        f.require("fname")
+        f.require("lname")
+        f.require("email")
+        f.require("username")
+        self.f = f
+
+    def checkDuplicates(self):
+        name = self.f["username"]
+        if self.clerk.match(Account, username=name):
+            self.errors.append({"error":"sorry, that name is taken"})
+
+
+if __name__=="__main__":
+    
+    print >> RES, LetsBankSignupApp(REQ, CLERK, RES,
+                                    thankspage='thanks.html').act()
