@@ -1,7 +1,11 @@
 
+
 from letsbank import AccountAuth
+from letsbank import Bank
+from letsbank import BankingApp
+
 AUTH = AccountAuth(sess, CLERK)
 AUTH.check()
 
-#from letsbank import BankingApp
-#print >> RES, BankingApp().act()
+BANK = Bank(CLERK)
+print >> RES, BankingApp(REQ, BANK, AUTH.account).act()
