@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+* exec:
+   import weblib
+
+<profile user="{:user:}" balance="{:balance:}">
+
+* for history:
+    * head:
+        <history length="{:len(history):}">
+    * body:
+        <tranaction 
+            posted="{:posted:}"
+            change="{:change:}"
+            other="{:other:}"
+            note="{:weblib.htmlEncode(note):}"/>
+    * foot:
+        </history>
+* none:
+    <history length="0"/>
+
+</profile>

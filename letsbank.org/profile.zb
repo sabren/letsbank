@@ -1,0 +1,10 @@
+* exec:
+   from zebra import html
+
+* include head;
+
+<a href="banking.app">go to my account</a>
+
+* include history;
+
+* include foot;

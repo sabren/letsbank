@@ -1,0 +1,22 @@
+* exec:
+   import weblib
+
+<p>Balance for user <b>{:user:}</b>: {:balance:}</p>
+* for history:
+    * head:
+        <table>
+          <tr>
+            <td>date</td><td>amount</td>
+            <td>user</td>
+            <td>note</td>
+          </tr>
+    * body:
+        <tr><td>{:posted:}</td>
+            <td>{:change:}</td>
+            <td><a href="profile.app?user={:other:}">{:other:}</a></td>
+            <td>{:weblib.htmlEncode(note):}</td>
+        </tr>
+    * foot:
+        </table>
+* none:
+    (no transactions yet)
