@@ -15,17 +15,6 @@ class Bank(object):
         except:
             raise KeyError(username)
 
-    def allAccounts(self):
-        return self.clerk.match(Account)
-
-    def countAccounts(self):
-        return len(self.allAccounts())
-        
-
-    def createAccount(self, username, password):
-        self.clerk.store(Account(username=username,
-                                 password=password))
-            
     def balanceFor(self, username):
         a = self.getAccount(username)
         return a.balance

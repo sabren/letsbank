@@ -11,32 +11,32 @@ def sum(xs):
 class BankTest(unittest.TestCase):
 
     def setUp(self):
+        """
+        our test bank has two accounts: wanda and rufus.
+        """
         self.clerk = MockClerk({
             Transaction.__attrs__['dst']: (Account, "dstID"),
             Transaction.__attrs__['src']: (Account, "srcID"),
-            }) 
-        b = Bank(self.clerk)
-        assert b.countAccounts() == 0
-
-        b.createAccount("rufus", "pass")
-        b.createAccount("wanda", "word")
-        assert b.countAccounts() == 2
-        self.bank = b 
+            })
+        self.clerk.store(Account(username="rufus"))
+        self.clerk.store(Account(username="wanda"))
+        
+        self.bank = Bank(self.clerk)        
 
 
-    def test_zero(self):
+    def test_zerosum(self):
         """
         LETS currency is a zero sum game.
         Every credit holding account is offset
         by another account holding debt.
         """
-        sumIsZero = lambda: sum([a.balance
-                                 for a in self.bank.allAccounts()]) == 0
-        assert sumIsZero()
+        zeroSum = lambda :\
+                  0 == sum([a.balance for a in self.clerk.match(Account)])
+        assert zeroSum()
         self.bank.transfer("rufus", "wanda", 5)
         self.assertEquals(self.bank.balanceFor("rufus"), -5)
         assert self.bank.balanceFor("wanda") == 5
-        assert sumIsZero()
+        assert zeroSum()
 
 
     def test_positive(self):
@@ -56,7 +56,6 @@ class BankTest(unittest.TestCase):
         assert t.dst.username=='rufus'
         assert t.amount == 1
         assert self.clerk.match(Account, username='wanda')[0].balance == -1
-
 
 
 if __name__=="__main__":
