@@ -12,7 +12,6 @@ class Account(Strongbox):
     email = attr(str)
     username = attr(str)
     password = attr(str)
-    balance = attr(FixedPoint, default=0)
 
     def __init__(self, **args):
         super(Account, self).__init__(**args)

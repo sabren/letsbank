@@ -57,8 +57,6 @@ class Bank(object):
         try:
             s = self.getAccount(source)
             d = self.getAccount(dest)
-            s.balance -= amount
-            d.balance += amount
             # this line stores all three objects (because of the links):
             self.clerk.store(Transaction(src=s, dst=d, amount=amount,
                                          note=note))

@@ -27,7 +27,7 @@ class BankTest(unittest.TestCase):
         by another account holding debt.
         """
         zeroSum = lambda :\
-                  0 == sum([a.balance for a in self.clerk.match(Account)])
+                  0 == sum([self.bank.balanceFor(a.username) for a in self.clerk.match(Account)])
         assert zeroSum()
         self.bank.transfer("rufus", "wanda", 5, "test")
         self.assertEquals(self.bank.balanceFor("rufus"), -5)
@@ -54,7 +54,7 @@ class BankTest(unittest.TestCase):
         assert t.src.username=='wanda'
         assert t.dst.username=='rufus'
         assert t.amount == 1
-        assert self.clerk.match(Account, username='wanda')[0].balance == -1
+        assert self.bank.balanceFor('wanda') == -1
 
         assert len(self.bank.historyFor("wanda")) == 1
 
