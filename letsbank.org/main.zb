@@ -16,7 +16,7 @@
 
 <h1>LETSBank!</h1>
 
-logged in as: {:username:}
+logged in as: {:username:}  [<a href="banking.app?auth_logout_flag=1;">logout</a>]
 
 * for errors:
    {:error:}
