@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+     "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>LETSbank! - currency for collaboration</title>
+<link rel="stylesheet" href="letsbank.css">
+</head>
+<body>
+
+
+<p>NOTE: this is an alpha test... the database will be wiped clean on 10/01/2003</p>
+
+* exec:
+   from zebra import html
+
+<h1>LETSBank!</h1>
+
+logged in as: {:username:}
+
+* for errors:
+   {:error:}
+
+* if message:
+  <b style="color:black">{:message:}</b>
+
+<form action="banking.app" method="post">
+<input type="hidden" name="action" value="transfer">
+<b>new transaction:</b><br>
+transfer <input type="text" size="5" maxlen="5" name="amount" style="text-align:right">
+ alto user {:html.select("dest", users):}
+for <input type="text" size="50" maxlen="255" name="note">
+<input type="submit" value=">>" style="background: #ccddff; border: solid black 1px;">
+</form> 
+
+
+<p><b>transaction history:</b></p>
+* for transactions:
+    * head:
+        <table>
+          <tr>
+            <td>date</td><td>amount</td>
+            <td>user</td>
+            <td>note</td>
+          </tr>
+    * body:
+        * exec:
+           change = amount
+           if source == username:
+               change = change * -1
+               other = dest
+           else:
+               other = source
+        <tr><td>{:posted:}</td>
+            <td>{:change:}</td>
+            <td>{:other:}</td>
+            <td>{:note:}</td>
+        </tr>
+    * foot:
+        </table>
+* none:
+    (no transactions yet)
+
+
+</body>
+</html>
