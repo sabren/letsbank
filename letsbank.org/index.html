@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+     "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>letsbank: community currency</title>
+<link rel="stylesheet" href="letsbank.css">
+</head>
+<body>
+
+<div id="master"  style="width: 650px; margin:auto">
+
+<div id="banklogo">
+<img src="banklogo.png" width="120" height="130" alt="">
+<img src="letsbank.png" width="380" height="60" alt="LETSbank!" style="margin-left:140px;">
+</div>
+
+<div id="login" style="margin-right:140px; float: left;">
+<form action="bank.app" method="POST" style="display:inline">
+username:<br>
+<input type="text" name="auth_username" style="width:100px;">
+password: <br>
+<input type="password" name="auth_username" style="width:100px;"><br>
+<input type="submit" value="log in" 
+  style="color: white; margin-top:4px; background: #ccddff; border: none">
+</form>
+</div>
+
+<div style="margin-left:0px; color: gray">
+<p style="margin-top:0px"><b>a currency for collaboration</b></p>
+<p>(more info coming soon...)</p>
+
+<p><b><a href="signup.app">create account</a></b></p>
+
+</div>
+
+</div>
+
+<script language="javascript">
+   document.forms[0].auth_username.focus()
+</script>
+
+</body>
+</html>

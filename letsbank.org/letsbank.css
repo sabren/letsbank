@@ -1,0 +1,26 @@
+
+body {
+  background: white;
+  color: black;
+  font-family: verdana, arial;
+  font-size: 10pt;
+}
+
+#banklogo {
+  border-bottom: solid #ccddff 2px;
+  margin-bottom: 50px;
+}
+
+#login {
+  color: #aabbdd; 
+  padding: 5px;
+  border: solid #ccddff 1px;
+  width: 110px;
+}
+
+
+input {
+  border: solid #ccddff 1px;
+  color: gray;
+}
+
