@@ -1,5 +1,7 @@
 from letsbank import Account
 from sixthday import Auth
+import weblib
+import zebra
 
 #@TODO: this is almost exactly like rantelope.AuthorAuth :/
 
@@ -17,7 +19,7 @@ class AccountAuth(Auth):
 
 
     def fetch(self, key):
-        self.account = clerk.fetch(Account, key)
+        self.account = self.clerk.fetch(Account, key)
 
     def prompt(self, message, action, hidden):
         model = {"message": message,
@@ -26,3 +28,21 @@ class AccountAuth(Auth):
         #@TODO: make this return a string
         self._sess._response.write(zebra.fetch("login", model))
         
+    def _getAction(self):
+        
+        ## MAJOR KLUDGE HERE! #################################
+
+        res = "banking.app"
+
+        ####### this stuff is stolen from AUTH ################
+        
+        # add in a query string of our own:
+        res = res + "?auth_check_flag=1"
+
+        for item in self._sess._request.query.keys():
+            if item[:5] == "auth_":
+                pass # IGNORE old auth stuff
+            else:
+                res = res + "&" + weblib.urlEncode(item) + \
+                      "=" + weblib.urlEncode(self._sess._request.query[item])
+        return res

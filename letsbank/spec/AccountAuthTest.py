@@ -13,6 +13,9 @@ class AccountAuthTest(unittest.TestCase):
         assert not auth.validate({"username":"fred",
                                   "password":"ftempy"})
 
+        assert auth.validate({"username":"fred",
+                              "password":"rufus"})
+
 
 
 if __name__=="__main__":
