@@ -1,12 +1,12 @@
 
 from arlo import MockClerk
-from letsbank import DBMAP, Account, AccountAuth
+from letsbank import schema, Account, AccountAuth
 import unittest
 
 class AccountAuthTest(unittest.TestCase):
 
     def test_validate(self):
-        clerk = MockClerk(DBMAP)
+        clerk = MockClerk(schema)
         clerk.store(Account(username="fred", password="rufus"))
 
         auth = AccountAuth({}, clerk)

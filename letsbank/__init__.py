@@ -4,12 +4,13 @@ from Bank import Bank
 from AccountAuth import AccountAuth
 from BankingApp import BankingApp
 from ProfileApp import ProfileApp
+from arlo import Schema
 
-DBMAP = {
+schema = Schema ({
     Account: "bank_account",    
     Transaction: "bank_transaction",    
-    Transaction.__attrs__['dst']: (Account, "destID"),
-    Transaction.__attrs__['src']: (Account, "sourceID"),
-    }
+    Transaction.dst: "destID",
+    Transaction.src: "sourceID",
+})
 
 
