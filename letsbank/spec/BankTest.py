@@ -55,6 +55,7 @@ class BankTest(unittest.TestCase):
         assert t.src.username=='wanda'
         assert t.dst.username=='rufus'
         assert t.amount == 1
+        assert self.clerk.match(Account, username='wanda')[0].balance == -1
 
 
 

@@ -35,14 +35,11 @@ class Bank(object):
     def transfer(self, source, dest, amount):
         if amount <= 0: raise ValueError("amount must be postive")
         try:
-            complete = 0
             s = self.getAccount(source)
             d = self.getAccount(dest)
             s.balance -= amount
             d.balance += amount
-            self.clerk.store(s)
-            self.clerk.store(d)
-            complete = 1
-        except:
-            raise Exception("transaction failed") #@TODO: now what?
-        self.clerk.store(Transaction(src=s, dst=d, amount=amount))
+            # this line stores all three objects (because of the links):
+            self.clerk.store(Transaction(src=s, dst=d, amount=amount))
+        except Exception, e:
+            raise Exception("transaction failed: %s" % e)
