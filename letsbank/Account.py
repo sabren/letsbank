@@ -8,8 +8,3 @@ class Account(Strongbox):
     password = attr(str)
     balance = attr(FixedPoint, default=0)
 
-    def transfer(self, other, amount):
-        assert isinstance(other, Account)
-        other.balance += amount
-        self.balance -= amount
-    
