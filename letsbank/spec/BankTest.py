@@ -29,7 +29,7 @@ class BankTest(unittest.TestCase):
         zeroSum = lambda :\
                   0 == sum([a.balance for a in self.clerk.match(Account)])
         assert zeroSum()
-        self.bank.transfer("rufus", "wanda", 5)
+        self.bank.transfer("rufus", "wanda", 5, "test")
         self.assertEquals(self.bank.balanceFor("rufus"), -5)
         assert self.bank.balanceFor("wanda") == 5
         assert zeroSum()
@@ -39,13 +39,13 @@ class BankTest(unittest.TestCase):
         """
         you can't give someone a debt, or a 'nothing'
         """
-        self.assertRaises(ValueError, self.bank.transfer, "wanda", "rufus", -1)
-        self.assertRaises(ValueError, self.bank.transfer, "wanda", "rufus", 0)
+        self.assertRaises(ValueError, self.bank.transfer, "wanda", "rufus", -1, "whatever")
+        self.assertRaises(ValueError, self.bank.transfer, "wanda", "rufus", 0, "whatever")
 
 
     def test_history(self):
         assert len(self.clerk.match(Transaction)) == 0
-        self.bank.transfer("wanda", "rufus", 1)
+        self.bank.transfer("wanda", "rufus", 1, "history test")
         assert len(self.clerk.match(Transaction)) == 1
         t = self.clerk.fetch(Transaction, 1)
         assert t.src.username=='wanda'

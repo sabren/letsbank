@@ -31,7 +31,7 @@ class Bank(object):
         
     ## transfer management:
 
-    def transfer(self, source, dest, amount):
+    def transfer(self, source, dest, amount, note):
         if amount <= 0: raise ValueError("amount must be postive")
         try:
             s = self.getAccount(source)
@@ -39,6 +39,7 @@ class Bank(object):
             s.balance -= amount
             d.balance += amount
             # this line stores all three objects (because of the links):
-            self.clerk.store(Transaction(src=s, dst=d, amount=amount))
+            self.clerk.store(Transaction(src=s, dst=d, amount=amount,
+                                         note=note))
         except Exception, e:
             raise Exception("transaction failed: %s" % e)
