@@ -27,3 +27,14 @@ input {
 .error {
   color: red;
 }
+
+
+table, td {
+   border-collapse:	collapse;	/* ie 6 ? *
+   border-spacing:		0; 		/* ns 6 ? */
+}
+
+td {
+  border: solid #ccddff 1px;
+  padding: 2px;
+}
