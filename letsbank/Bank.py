@@ -1,10 +1,13 @@
 
 from letsbank import Account
+from letsbank import Transaction
 
 class Bank(object):
 
     def __init__(self, clerk):
         self.clerk = clerk
+
+    ## account management:
     
     def getAccount(self, username):
         try:
@@ -19,8 +22,18 @@ class Bank(object):
         return len(self.allAccounts())
         
 
+    def createAccount(self, username, password):
+        self.clerk.store(Account(username=username,
+                                 password=password))
+            
+    def balanceFor(self, username):
+        a = self.getAccount(username)
+        return a.balance
+        
+    ## transfer management:
+
     def transfer(self, source, dest, amount):
-        assert amount > 0, "amount must be postive"
+        if amount <= 0: raise ValueError("amount must be postive")
         try:
             complete = 0
             s = self.getAccount(source)
@@ -30,16 +43,6 @@ class Bank(object):
             self.clerk.store(s)
             self.clerk.store(d)
             complete = 1
-        finally:
-            assert complete, "transaction failed" #@TODO: now what?
-            
-
-    def createAccount(self, username, password):
-        self.clerk.store(Account(username=username,
-                                 password=password))
-
-
-    def balanceFor(self, username):
-        a = self.getAccount(username)
-        return a.balance
-        
+        except:
+            raise Exception("transaction failed") #@TODO: now what?
+        self.clerk.store(Transaction(src=s, dst=d, amount=amount))

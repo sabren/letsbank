@@ -1,8 +1,6 @@
-
 import unittest
-from letsbank import Bank
+from letsbank import Bank, Transaction, Account
 from arlo import MockClerk
-
 
 def sum(xs):
     if len(xs):
@@ -10,11 +8,14 @@ def sum(xs):
     else:
         return 0
 
-
 class BankTest(unittest.TestCase):
 
     def setUp(self):
-        b = Bank(MockClerk())
+        self.clerk = MockClerk({
+            Transaction.__attrs__['dst']: (Account, "dstID"),
+            Transaction.__attrs__['src']: (Account, "srcID"),
+            }) 
+        b = Bank(self.clerk)
         assert b.countAccounts() == 0
 
         b.createAccount("rufus", "pass")
@@ -36,6 +37,24 @@ class BankTest(unittest.TestCase):
         self.assertEquals(self.bank.balanceFor("rufus"), -5)
         assert self.bank.balanceFor("wanda") == 5
         assert sumIsZero()
+
+
+    def test_positive(self):
+        """
+        you can't give someone a debt, or a 'nothing'
+        """
+        self.assertRaises(ValueError, self.bank.transfer, "wanda", "rufus", -1)
+        self.assertRaises(ValueError, self.bank.transfer, "wanda", "rufus", 0)
+
+
+    def test_history(self):
+        assert len(self.clerk.match(Transaction)) == 0
+        self.bank.transfer("wanda", "rufus", 1)
+        assert len(self.clerk.match(Transaction)) == 1
+        t = self.clerk.fetch(Transaction, 1)
+        assert t.src.username=='wanda'
+        assert t.dst.username=='rufus'
+        assert t.amount == 1
 
 
 
