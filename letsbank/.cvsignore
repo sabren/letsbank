@@ -1,2 +1,2 @@
-*.pyc spec/*.pyc
-
+*.pyc
+spec/*.pyc
